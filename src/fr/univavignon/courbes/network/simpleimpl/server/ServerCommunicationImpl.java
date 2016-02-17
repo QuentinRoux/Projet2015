@@ -208,6 +208,7 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 	{	try
 		{	try
 			{	serverSocket = new ServerSocket(port);
+				// TODO on envoie les données en php
 			}
 			catch (IOException e1)
 			{	e1.printStackTrace();
@@ -287,6 +288,7 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 			
 			// on répond favorablement au client
 			swrs[index].objects.offer(NetworkConstants.ANNOUNCE_ACCEPTED_CONNECTION);
+			//TODO modification nombre place serveur
 		}
 		
 		// cas où le serveur n'a plus de place
@@ -357,6 +359,7 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 			try
 			{	sockets[index].close();
 				sockets[index] = null;
+				// TODO  augmenter nombre places disponibles (serveur)
 			}
 			catch (IOException e)
 			{	//e.printStackTrace();

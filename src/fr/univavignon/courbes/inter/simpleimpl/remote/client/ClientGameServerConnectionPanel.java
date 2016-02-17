@@ -1,3 +1,4 @@
+// TODO nouvelle interface (liste serveur)
 package fr.univavignon.courbes.inter.simpleimpl.remote.client;
 
 /*
