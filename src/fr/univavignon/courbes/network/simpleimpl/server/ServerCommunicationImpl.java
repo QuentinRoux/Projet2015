@@ -68,7 +68,7 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 					while(ias.hasMoreElements() && ip==null)
 					{	InetAddress ia = ias.nextElement();
 						String iaStr = ia.getHostAddress();
-						if(iaStr.startsWith("192.168.") || iaStr.startsWith("10.104."))
+						if(iaStr.startsWith("192.168.") || iaStr.startsWith("10.104.") || iaStr.startsWith("194.57."))
 								ip = iaStr;
 					}
 				}
@@ -118,8 +118,8 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 	protected void fetchProfile(Profile profile, int index)
 	{	if(profileHandler!=null)
 			profileHandler.fetchProfile(profile,index);
-		else
-			System.err.println("Le handler de profils n'a pas été renseigné !");
+//		else
+//			System.err.println("Le handler de profils n'a pas été renseigné !");
 	}
 
 	/**
@@ -133,6 +133,7 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 			profileHandler.connectionLost(index);
 //		else
 //			System.err.println("Le handler de profils n'a pas été renseigné !");
+		
 		if(gameHandler!=null)
 			gameHandler.connectionLost(index);
 //		else
@@ -159,8 +160,8 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 	public void fetchAcknowledgment(int index)
 	{	if(gameHandler!=null)
 			gameHandler.fetchAcknowledgment(index);
-		else
-			System.err.println("Le handler de partie n'a pas été renseigné !");
+//		else
+//			System.err.println("Le handler de partie n'a pas été renseigné !");
 	}
 	
 	////////////////////////////////////////////////////////////////
@@ -182,9 +183,9 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 	 */
 	public void displayError(String message)
 	{	if(errorHandler!=null)
-		errorHandler.displayError(message);
-		else
-			System.err.println("Le handler d'erreur n'a pas été renseigné !");
+			errorHandler.displayError(message);
+//		else
+//			System.err.println("Le handler d'erreur n'a pas été renseigné !");
 	}
 	
 	////////////////////////////////////////////////////////////////
@@ -208,7 +209,6 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 	{	try
 		{	try
 			{	serverSocket = new ServerSocket(port);
-				// TODO on envoie les données en php
 			}
 			catch (IOException e1)
 			{	e1.printStackTrace();
@@ -288,7 +288,6 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 			
 			// on répond favorablement au client
 			swrs[index].objects.offer(NetworkConstants.ANNOUNCE_ACCEPTED_CONNECTION);
-			//TODO modification nombre place serveur
 		}
 		
 		// cas où le serveur n'a plus de place
@@ -359,7 +358,6 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 			try
 			{	sockets[index].close();
 				sockets[index] = null;
-				// TODO  augmenter nombre places disponibles (serveur)
 			}
 			catch (IOException e)
 			{	//e.printStackTrace();

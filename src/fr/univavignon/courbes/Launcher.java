@@ -23,71 +23,71 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
+import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 
 /**
  * Classe principale chargée du lancement du jeu.
  * 
- * @author L3 Info UAPV 2015-16
+ * @author	L3 Info UAPV 2015-16
  */
-public class Launcher extends JFrame {
-	/** numéro de série de la classe */
+public class Launcher extends JFrame
+{	/** numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * Méthode de lancement du jeu.
 	 * 
 	 * @param args
-	 *            Pas utilisés.
+	 * 		Pas utilisés.
 	 * 
 	 * @throws Exception
-	 *             Une Exception queconque...
+	 * 		Une Exception queconque... 
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception
+	{	// on charge les options du jeu qui avaient été stockées dans un fichier texte
+		SettingsManager.loadSettings();
+		
+		// on change le look'n'feel Java
 		setLookAndFeel();
-
+		
+		// on crée la fenêtre principale, qui lance le jeu
 		new MainWindow();
 	}
-
+	
 	/**
 	 * Change l'aspect général de l'application (composants Swing).
 	 * 
 	 * @throws Exception
-	 *             Une Exception queconque...
+	 * 		Une Exception queconque... 
 	 */
-	private static void setLookAndFeel() throws Exception {
-		UIManager.setLookAndFeel(UIManager
-				.getCrossPlatformLookAndFeelClassName());
-
+	private static void setLookAndFeel() throws Exception
+	{	UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		
 		// change look and feel
-		UIManager.setLookAndFeel(UIManager
-				.getCrossPlatformLookAndFeelClassName());
-		// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		// UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-		// UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-		try {
-			LookAndFeelInfo tab[] = UIManager.getInstalledLookAndFeels();
+		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+//		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//		UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+//		UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+		try
+		{	LookAndFeelInfo tab[] = UIManager.getInstalledLookAndFeels();
 			int i = 0;
 			boolean found = false;
-			while (i < tab.length && !found) {
-				LookAndFeelInfo info = tab[i];
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					found = true;
-				}
+			while(i<tab.length && !found)
+			{	LookAndFeelInfo info = tab[i];
+				if("Nimbus".equals(info.getName()))
+				{	UIManager.setLookAndFeel(info.getClassName());
+		            found = true;
+		        }
 				i++;
-			}
-		} catch (Exception e) { // Nimbus not available
-			UIManager.setLookAndFeel(UIManager
-					.getCrossPlatformLookAndFeelClassName());
+		    }
+		} catch (Exception e)
+		{	// Nimbus not available
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		}
 	}
 }
 
 /*
- * TODO tâches à traiter : - on pourrait reproduire l'animation d'apparition des
- * items
- * 
- * - pr réseau : - les items n'apparaissent pas chez client - traces restent
- * chez client d'un round à l'autre - client déconnecté pas marqué comme tel
- * (pas couleur grise pdt jeu)
+ * TODO tâches à traiter :
+ * - on pourrait reproduire l'animation d'apparition des items
  */
