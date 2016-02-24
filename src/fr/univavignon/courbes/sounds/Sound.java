@@ -13,9 +13,9 @@ public class Sound {
      * 
      * @param filename le lien vers le fichier song (URL ou absolute path)
      */
-    public Sound(String Filename){
+    public Sound(String filename){
      try{
-      AudioInputStream stream = AudioSystem.getAudioInputStream(new File(Filename));
+      AudioInputStream stream = AudioSystem.getAudioInputStream(new File(filename));
       format = stream.getFormat();
       samples = getSamples(stream);
      }
@@ -70,3 +70,13 @@ public class Sound {
      line.close();
     }
 }
+
+/*
+	A insérer dans le code:
+	
+	Sound player = new Sound("CLICK.WAV");
+    InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    player.play(stream);
+  	
+  	pour lire le fichier son voulu.
+*/
