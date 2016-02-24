@@ -13,9 +13,9 @@ public class Sound {
      * 
      * @param filename le lien vers le fichier song (URL ou absolute path)
      */
-    public Sound(String "http://www.pacdv.com/sounds/free-music/fresh-sparks-01.mp3"){
+    public Sound(String Filename){
      try{
-      AudioInputStream stream = AudioSystem.getAudioInputStream(new File("http://www.pacdv.com/sounds/free-music/fresh-sparks-01.mp3"));
+      AudioInputStream stream = AudioSystem.getAudioInputStream(new File(Filename));
       format = stream.getFormat();
       samples = getSamples(stream);
      }
