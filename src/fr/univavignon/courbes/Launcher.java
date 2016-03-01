@@ -67,9 +67,6 @@ public class Launcher extends JFrame
 	 */
 	private static void setLookAndFeel() throws Exception
 	{	
-		Sound player = new Sound("Si vous trouvez un chemin qui marche yolo go test !");
-	    InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-	    player.play(stream);
 		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		
 		// change look and feel
