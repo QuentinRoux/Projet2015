@@ -74,7 +74,7 @@ public class Sound {
 /*
 	A insérer dans le code:
 	
-	Sound player = new Sound("CLICK.WAV");
+	Sound player = new Sound("chemin relatif au son");
     InputStream stream = new ByteArrayInputStream(player.getSamples()); 
     player.play(stream);
   	
