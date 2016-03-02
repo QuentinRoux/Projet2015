@@ -18,6 +18,9 @@ package fr.univavignon.courbes;
  * along with Courbes. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -45,7 +48,8 @@ public class Launcher extends JFrame
 	 * 		Une Exception queconque... 
 	 */
 	public static void main(String[] args) throws Exception
-	{	// on charge les options du jeu qui avaient été stockées dans un fichier texte
+	{	
+		// on charge les options du jeu qui avaient été stockées dans un fichier texte
 		SettingsManager.loadSettings();
 		
 		// on change le look'n'feel Java
@@ -64,7 +68,11 @@ public class Launcher extends JFrame
 	 * 		Une Exception queconque... 
 	 */
 	private static void setLookAndFeel() throws Exception
-	{	UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+	{	
+		Sound player = new Sound("Si vous trouvez un chemin qui marche yolo go test !");
+	    InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+	    player.play(stream);
+		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		
 		// change look and feel
 		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
