@@ -24,6 +24,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Classe principale chargée du lancement du jeu.
@@ -51,6 +52,8 @@ public class Launcher extends JFrame
 		setLookAndFeel();
 		
 		// on crée la fenêtre principale, qui lance le jeu
+		Sound t=new Sound("res/sounds/fresh-sparks-01.mp3");
+		t.start();
 		new MainWindow();
 	}
 	

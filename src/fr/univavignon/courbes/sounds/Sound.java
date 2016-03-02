@@ -6,9 +6,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.sound.sampled.*;
 
-public class Sound {
+public class Sound extends Thread{
     private AudioFormat format;
     private byte[] samples;
+    
+    public void run()
+    {
+    	System.out.println("test");
+    }
+    
     /**
      * 
      * @param filename le lien vers le fichier song (URL ou absolute path)
