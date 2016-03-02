@@ -1,17 +1,25 @@
 package fr.univavignon.courbes.sounds;
 
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
 import javax.sound.sampled.*;
 
 public class Sound extends Thread{
     private AudioFormat format;
     private byte[] samples;
+    private String chemin;
     
+    // lancé par start() dans le luncher
     public void run()
     {
+
+    	Sound player = new Sound(chemin);
+        InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+        player.play(stream);
     	System.out.println("test");
     }
     
@@ -24,6 +32,7 @@ public class Sound extends Thread{
       AudioInputStream stream = AudioSystem.getAudioInputStream(new File(filename));
       format = stream.getFormat();
       samples = getSamples(stream);
+      chemin=filename;
      }
      catch (UnsupportedAudioFileException e){
       e.printStackTrace();

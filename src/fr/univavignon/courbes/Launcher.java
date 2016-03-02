@@ -55,9 +55,12 @@ public class Launcher extends JFrame
 		// on change le look'n'feel Java
 		setLookAndFeel();
 		
-		// on crée la fenêtre principale, qui lance le jeu
-		Sound t=new Sound("res/sounds/fresh-sparks-01.mp3");
+		//ON lance le son du jeu avec le chemin du son en wav
+		Sound t=new Sound("res/sounds/fresh-sparks-01.wav");
 		t.start();
+		
+		// on crée la fenêtre principale, qui lance le jeu
+
 		new MainWindow();
 	}
 	
@@ -69,9 +72,6 @@ public class Launcher extends JFrame
 	 */
 	private static void setLookAndFeel() throws Exception
 	{	
-		Sound player = new Sound("Si vous trouvez un chemin qui marche yolo go test !");
-	    InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-	    player.play(stream);
 		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		
 		// change look and feel
