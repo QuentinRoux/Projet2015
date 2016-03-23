@@ -33,6 +33,7 @@ import fr.univavignon.courbes.common.ItemInstance;
 import fr.univavignon.courbes.common.Position;
 import fr.univavignon.courbes.common.Snake;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Classe fille de {@link Snake}, permettant d'intégrer
@@ -216,13 +217,17 @@ public class PhysSnake extends Snake
 	 */
 	private void updateItemsEffect(long elapsedTime)
 	{	resetCharacs();
-		
 		Iterator<ItemInstance> it = currentItems.iterator();
 		while(it.hasNext())
 		{	PhysItemInstance item = (PhysItemInstance)it.next();
 			boolean remove = item.updateEffect(elapsedTime,this);
 			if(remove)
+			{
 				it.remove();
+				Sound t=new Sound("res/sounds/BOOSTO!.wav");
+				t.start();
+				t.interrupt();
+			}
 		}
 	}
 	

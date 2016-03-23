@@ -8,19 +8,46 @@ import java.io.InputStream;
 
 import javax.sound.sampled.*;
 
+//TODO trouver un moyen de faire en sorte que la musique change entre différents plateau.
 public class Sound extends Thread{
     private AudioFormat format;
     private byte[] samples;
     private String chemin;
+    public static int choix;
     
     // lancé par start() dans le luncher
     public void run()
     {
-
-    	Sound player = new Sound(chemin);
-        InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-        player.play(stream);
-    	System.out.println("test");
+    	if(choix==1)
+    	{
+    		Sound player = new Sound("res/sounds/Menus.wav");
+    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    		player.play(stream);
+    	}
+    	else if(choix==2)
+    	{
+    		Sound player = new Sound("res/sounds/begin_New_Game.wav");
+    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    		player.play(stream);
+    	}
+    	else if(choix==3)
+    	{
+    		Sound player = new Sound("res/sounds/game.wav");
+    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    		player.play(stream);
+    	}
+    	else if(choix==4)
+    	{
+    		Sound player = new Sound("res/sounds/get_Item.wav");
+    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    		player.play(stream);
+    	}
+    	else if(choix==5)
+    	{
+    		Sound player = new Sound("res/sounds/Impact.wav");
+    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    		player.play(stream);
+    	}
     }
     
     /**

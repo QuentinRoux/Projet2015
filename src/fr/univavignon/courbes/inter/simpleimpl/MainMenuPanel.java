@@ -34,6 +34,7 @@ import javax.swing.JPanel;
 
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.profiles.ProfileManager;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Panel contenant le menu principal du jeu.
@@ -41,9 +42,13 @@ import fr.univavignon.courbes.inter.simpleimpl.profiles.ProfileManager;
  * @author	L3 Info UAPV 2015-16
  */
 public class MainMenuPanel extends JPanel implements ActionListener
-{	/** Numéro de série de la classe */
+{	
+	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * t -> public sound for menu.
+	 */
+	public Sound t=new Sound("res/sounds/Menus.wav");
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 * 
@@ -52,7 +57,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	 */
 	public MainMenuPanel(MainWindow mainWindow)
 	{	super();
-		
+		t.start();
 		this.mainWindow = mainWindow;
 		initMenu();
 	}
@@ -77,7 +82,8 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	 * Initialisation du menu principal.
 	 */
 	public void initMenu()
-	{	BorderLayout borderLayout = new BorderLayout();
+	{	
+		BorderLayout borderLayout = new BorderLayout();
 		setLayout(borderLayout);
 
 		JPanel menuPanel = new JPanel();
@@ -149,9 +155,12 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
-	{	if(e.getSource()==localGameButton)	
-		{	if(ProfileManager.getProfiles().size() > 1)
-			{	mainWindow.displayPanel(PanelName.LOCAL_GAME_PLAYER_SELECTION);
+	{	
+		if(e.getSource()==localGameButton)
+		{	
+			if(ProfileManager.getProfiles().size() > 1)
+			{	
+				mainWindow.displayPanel(PanelName.LOCAL_GAME_PLAYER_SELECTION);
 			}
 			else
 			{	JOptionPane.showMessageDialog
@@ -163,11 +172,13 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		}
 	
 		else if(e.getSource()==serverGameButton)
-		{	mainWindow.displayPanel(PanelName.SERVER_GAME_PORT_SELECTION);
+		{	
+			mainWindow.displayPanel(PanelName.SERVER_GAME_PORT_SELECTION);
 		}
 	
 		else if(e.getSource()==clientGameButton)
-		{	if (ProfileManager.getProfiles().size() > 0)
+		{	
+			if (ProfileManager.getProfiles().size() > 0)
 			{	mainWindow.displayPanel(PanelName.CLIENT_GAME_PLAYER_SELECTION);
 			}
 			else
@@ -180,15 +191,19 @@ public class MainMenuPanel extends JPanel implements ActionListener
 		}
 	
 		else if(e.getSource()==profilesButton)
-		{	mainWindow.displayPanel(PanelName.PROFILE_LIST);
+		{	
+			mainWindow.displayPanel(PanelName.PROFILE_LIST);
 		}
 	
 		else if(e.getSource()==statsButton)
-		{	mainWindow.displayPanel(PanelName.STATISTICS);
+		{	
+			mainWindow.displayPanel(PanelName.STATISTICS);
 		}
 	
 		else if(e.getSource()==quitButton)
-		{	mainWindow.closeWindow();
+		{	
+			t.interrupt();
+			mainWindow.closeWindow();
 		}
 	}
 }
