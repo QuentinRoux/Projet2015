@@ -31,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Panel de base comportant des boutons pour avancer et reculer dans

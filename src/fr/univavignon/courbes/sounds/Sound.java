@@ -1,14 +1,55 @@
 package fr.univavignon.courbes.sounds;
 
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
 import javax.sound.sampled.*;
 
-public class Sound {
+//TODO trouver un moyen de faire en sorte que la musique change entre différents plateau.
+public class Sound extends Thread{
     private AudioFormat format;
     private byte[] samples;
+    private String chemin;
+    public static int choix;
+    
+    // lancé par start() dans le luncher
+    public void run()
+    {
+    	if(choix==1)
+    	{
+    		Sound player = new Sound("res/sounds/Menus.wav");
+    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    		player.play(stream);
+    	}
+    	else if(choix==2)
+    	{
+    		Sound player = new Sound("res/sounds/begin_New_Game.wav");
+    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    		player.play(stream);
+    	}
+    	else if(choix==3)
+    	{
+    		Sound player = new Sound("res/sounds/game.wav");
+    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    		player.play(stream);
+    	}
+    	else if(choix==4)
+    	{
+    		Sound player = new Sound("res/sounds/get_Item.wav");
+    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    		player.play(stream);
+    	}
+    	else if(choix==5)
+    	{
+    		Sound player = new Sound("res/sounds/Impact.wav");
+    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
+    		player.play(stream);
+    	}
+    }
+    
     /**
      * 
      * @param filename le lien vers le fichier song (URL ou absolute path)
@@ -18,6 +59,7 @@ public class Sound {
       AudioInputStream stream = AudioSystem.getAudioInputStream(new File(filename));
       format = stream.getFormat();
       samples = getSamples(stream);
+      chemin=filename;
      }
      catch (UnsupportedAudioFileException e){
       e.printStackTrace();

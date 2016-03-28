@@ -47,6 +47,7 @@ import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRemotePla
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRoundPanel;
 import fr.univavignon.courbes.network.ClientCommunication;
 import fr.univavignon.courbes.network.ServerCommunication;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Menu principal du jeu.
@@ -66,7 +67,6 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	 */
 	public MainWindow()
 	{	super();
-		
 		initWindow();
 	}
 	
@@ -234,7 +234,8 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	 * Met à jour le titre de la fenêtre.
 	 */
 	public void updateTitle()
-	{	String title = GAME_NAME + " v" + GAME_VERSION;
+	{	
+		String title = GAME_NAME + " v" + GAME_VERSION;
 		if(serverCom!=null)
 		{	String ipStr = serverCom.getIp();
 			title = title + " - " + ipStr;
