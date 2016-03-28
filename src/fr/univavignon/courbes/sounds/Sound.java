@@ -16,38 +16,10 @@ public class Sound extends Thread{
     public static int choix;
     
     // lancé par start() dans le luncher
-    public void run()
+    @Override public void run()
     {
-    	if(choix==1)
-    	{
-    		Sound player = new Sound("res/sounds/Menus.wav");
-    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-    		player.play(stream);
-    	}
-    	else if(choix==2)
-    	{
-    		Sound player = new Sound("res/sounds/begin_New_Game.wav");
-    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-    		player.play(stream);
-    	}
-    	else if(choix==3)
-    	{
-    		Sound player = new Sound("res/sounds/game.wav");
-    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-    		player.play(stream);
-    	}
-    	else if(choix==4)
-    	{
-    		Sound player = new Sound("res/sounds/get_Item.wav");
-    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-    		player.play(stream);
-    	}
-    	else if(choix==5)
-    	{
-    		Sound player = new Sound("res/sounds/Impact.wav");
-    		InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-    		player.play(stream);
-    	}
+		InputStream stream = new ByteArrayInputStream(this.getSamples()); 
+		this.play(stream);	
     }
     
     /**
@@ -112,13 +84,3 @@ public class Sound extends Thread{
      line.close();
     }
 }
-
-/*
-	A insérer dans le code:
-	
-	Sound player = new Sound("chemin relatif au son");
-    InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-    player.play(stream);
-  	
-  	pour lire le fichier son voulu.
-*/

@@ -55,10 +55,6 @@ public class Launcher extends JFrame
 		// on change le look'n'feel Java
 		setLookAndFeel();
 		
-		//ON lance le son du jeu avec le chemin du son en wav
-		Sound t=new Sound("res/sounds/fresh-sparks-01.wav");
-		t.start();
-		
 		// on crée la fenêtre principale, qui lance le jeu
 
 		new MainWindow();

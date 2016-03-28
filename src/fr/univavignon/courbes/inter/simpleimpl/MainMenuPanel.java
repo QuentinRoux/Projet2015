@@ -46,18 +46,14 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * t -> public sound for menu.
-	 */
-	public Sound t=new Sound("res/sounds/Menus.wav");
-	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 * 
 	 * @param mainWindow
 	 * 		Fenêtre principale contenant ce panel. 
 	 */
 	public MainMenuPanel(MainWindow mainWindow)
-	{	super();
-		t.start();
+	{	
+		super();
 		this.mainWindow = mainWindow;
 		initMenu();
 	}
@@ -202,7 +198,6 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	
 		else if(e.getSource()==quitButton)
 		{	
-			t.interrupt();
 			mainWindow.closeWindow();
 		}
 	}

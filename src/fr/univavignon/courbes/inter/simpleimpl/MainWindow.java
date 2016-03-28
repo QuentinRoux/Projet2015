@@ -22,8 +22,10 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -61,12 +63,13 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	private static final String GAME_NAME = "Courbes";
 	/** Version du jeu */
 	private static final String GAME_VERSION = "1";
-	
+	Sound t=new Sound("res/sounds/fresh-sparks-01.wav");
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 */
 	public MainWindow()
 	{	super();
+		t.start();
 		initWindow();
 	}
 	
@@ -212,6 +215,7 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				currentPanel = new ClientGameWaitPanel(this);
 				break;
 			case CLIENT_GAME_PLAY:
+				t.interrupt();//TODO je ne comprends pas pourquoi ça ne l'arrete pas ...
 				currentPanel = new ClientGameRoundPanel(this);
 				break;
 			case PROFILE_LIST:
