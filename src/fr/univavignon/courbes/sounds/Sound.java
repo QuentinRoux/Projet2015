@@ -15,11 +15,25 @@ public class Sound extends Thread{
     private String chemin;
     public static int choix;
     
-    // lancé par start() dans le luncher
     @Override public void run()
     {
-		InputStream stream = new ByteArrayInputStream(this.getSamples()); 
-		this.play(stream);	
+    	try {
+    		while (!Thread.currentThread().isInterrupted())
+    		{
+            	InputStream stream = new ByteArrayInputStream(this.getSamples()); 
+        		this.play(stream);
+        		Thread.sleep(5000);
+    		}
+    	}catch (InterruptedException e){
+    		Thread.currentThread().interrupted() ;
+        }
+    }
+    /**
+     * Permet l'interruption du Thread dans le programme.
+     */
+    public  void cancel() 
+    {
+        Thread.currentThread().interrupt() ;
     }
     
     /**

@@ -43,6 +43,7 @@ import fr.univavignon.courbes.sounds.Sound;
  */
 public class MainMenuPanel extends JPanel implements ActionListener
 {	
+	Sound t=new Sound("res/sounds/on-the-run-01.wav");
 	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
 	/**
@@ -54,6 +55,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	public MainMenuPanel(MainWindow mainWindow)
 	{	
 		super();
+		t.start();
 		this.mainWindow = mainWindow;
 		initMenu();
 	}
@@ -198,6 +200,7 @@ public class MainMenuPanel extends JPanel implements ActionListener
 	
 		else if(e.getSource()==quitButton)
 		{	
+			t.cancel();
 			mainWindow.closeWindow();
 		}
 	}

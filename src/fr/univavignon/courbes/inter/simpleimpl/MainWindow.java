@@ -63,13 +63,11 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	private static final String GAME_NAME = "Courbes";
 	/** Version du jeu */
 	private static final String GAME_VERSION = "1";
-	Sound t=new Sound("res/sounds/fresh-sparks-01.wav");
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 */
 	public MainWindow()
 	{	super();
-		t.start();
 		initWindow();
 	}
 	
@@ -215,7 +213,6 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				currentPanel = new ClientGameWaitPanel(this);
 				break;
 			case CLIENT_GAME_PLAY:
-				t.interrupt();//TODO je ne comprends pas pourquoi ça ne l'arrete pas ...
 				currentPanel = new ClientGameRoundPanel(this);
 				break;
 			case PROFILE_LIST:
