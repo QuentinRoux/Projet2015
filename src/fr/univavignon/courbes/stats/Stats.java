@@ -1,5 +1,6 @@
 package fr.univavignon.courbes.stats;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import fr.univavignon.courbes.common.Player;
@@ -20,11 +21,34 @@ public class Stats {
 		
 		/** Id joueur gagnant */
 		public int winner;
+		/** Nb de round de la partie */
+		public int nb_round;
+		/** temps de la partie  en seconde*/
+		long time;
+		/** date de la partie */
+		Date date;
 		
-		/** Saisi l'id du gagnant de la partie */
-		public Stats(int win)
+		/**
+		 * Score des joueur de la partie;
+		 */
+		public int score[];
+		
+		/** constructeur */
+		public Stats(int win,int nb_r,Player[] p,int nb_player,long t)
 		{
 			winner=win;
+			nb_round=nb_r;
+			time=t/1000;
+			
+			for (int i=0;i<nb_player;i++)
+			{
+				Tab_Joueur[i]=p[i].playerId;
+				score[i]=p[i].totalScore;
+			}
+			date= new Date();
+			
+			Chargement_Elo();
+			
 		}
 
 		/** constructeur */
@@ -33,21 +57,13 @@ public class Stats {
 			winner=0;
 			
 		}
-		/** init(id gagnant de la partie) */
-		public void init(int win)
+		/** Envoi les stats au server */
+		public void Maj()
 		{
-			winner=win;
+			Chargement_Elo();
+			Envoi_Elo();
 		}
 		
-		/** Récupère l'id des player de la partie */
-		public void Chargement_Joueurs(Player[] p,int nb_player)
-		{
-			nb_players=nb_player;
-			for (int i=0;i<nb_player;i++)
-			{
-				Tab_Joueur[i]=p[i].playerId;
-			}
-		}
 		/**  Entre l'elo des joueur de la partie dans la hmap */
 		public void Chargement_Elo()
 		{
@@ -69,6 +85,7 @@ public class Stats {
 			}
 			
 		}
+		
 
 		/** Calcul le nouvel elo des joueurs */
 		public HashMap<Integer, Integer> calculateMultiplayer(HashMap<Integer, Integer> usersRating, int userIdWinner) {

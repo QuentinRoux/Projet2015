@@ -101,6 +101,8 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	protected Integer[] eliminatedBy;
 	/** Indique l'id du gagnant */
 	public int ID_Winner;
+	/** Nombre de round qu'a durée la partie */
+	public int nb_round;
 	
 	/**
 	 * Initialise le panel et les objets qu'il utilise.
@@ -130,6 +132,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 		mainWindow.setFocusable(true);
 		mainWindow.requestFocusInWindow();
 		mainWindow.addKeyListener(keyManager);
+		nb_round=0;
 	}
 	
 	/**
@@ -141,7 +144,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 
 		do
 		{	// on joue le round
-			
+			nb_round++;
 			playRound();
 			
 			// on met à jour les score totaux
