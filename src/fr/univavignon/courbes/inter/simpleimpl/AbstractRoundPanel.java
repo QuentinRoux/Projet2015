@@ -133,6 +133,8 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 		mainWindow.requestFocusInWindow();
 		mainWindow.addKeyListener(keyManager);
 		nb_round=0;
+		agentManager = new AgentManager(round.players);
+		
 	}
 	
 	/**

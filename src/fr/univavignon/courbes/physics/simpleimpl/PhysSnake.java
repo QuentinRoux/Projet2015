@@ -32,8 +32,11 @@ import fr.univavignon.courbes.common.Direction;
 import fr.univavignon.courbes.common.ItemInstance;
 import fr.univavignon.courbes.common.Position;
 import fr.univavignon.courbes.common.Snake;
+<<<<<<< HEAD
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 import fr.univavignon.courbes.sounds.Sound;
+=======
+>>>>>>> refs/remotes/upstream/master
 
 /**
  * Classe fille de {@link Snake}, permettant d'intégrer
@@ -63,8 +66,8 @@ public class PhysSnake extends Snake
 		movingSpeed = Constants.BASE_MOVING_SPEED;
 		resetCharacs();
 		
-		int boardWidth = SettingsManager.getBoardWidth();
-		int boardHeight = SettingsManager.getBoardHeight();
+		int boardWidth = board.width;
+		int boardHeight = board.height;
 		Random random = new Random();
 		int marginX = boardWidth / 10;	// marge de sécurité: un dixième de l'aire de jeu
 		currentX = random.nextInt(boardWidth-2*marginX) + marginX; // on tire une valeur entre margin et width-1-margin
@@ -88,6 +91,11 @@ public class PhysSnake extends Snake
 		
 		currentItems = new LinkedList<ItemInstance>();
 	}
+	
+	/**
+	 * Empty constructor used for Kryonet network
+	 */
+	public PhysSnake(){}
 
 	/**
 	 * Crée le serpent associé au numéro indiqué, pour le profil
@@ -126,6 +134,7 @@ public class PhysSnake extends Snake
 		this.currentX = snake.currentX;
 		this.currentY = snake.currentY;
 		
+		this.oldTrail = new TreeSet<Position>(snake.oldTrail);
 		this.newTrail = new TreeSet<Position>(snake.newTrail);
 		this.clearedTrail = snake.clearedTrail;
 		
@@ -149,7 +158,6 @@ public class PhysSnake extends Snake
 		}
 		
 		// classe PhysSnake
-		this.oldTrail = new TreeSet<Position>(snake.oldTrail);
 		this.remainingHole = snake.remainingHole;
 		this.timeSinceLastHole = snake.timeSinceLastHole;
 		this.currentHoleWidth = snake.currentHoleWidth;
@@ -165,8 +173,6 @@ public class PhysSnake extends Snake
 		this.prevPos = new Position(snake.prevPos);
 	}
 
-	/** Ancienne section de la trainée du serpent sur l'aire de jeu */
-	public Set<Position> oldTrail;
 	/** Nombre de pixels restants pour terminer le trou courant */
 	private float remainingHole;
 	/** Temps écoulé depuis la fin du dernier trou (en ms) */
@@ -351,8 +357,8 @@ public class PhysSnake extends Snake
 	 */
 	private boolean detectCollisions(PhysBoard board, Set<Position> physicalTrail)
 	{	boolean result = false;
-		int boardWidth = SettingsManager.getBoardWidth();
-		int boardHeight = SettingsManager.getBoardHeight();
+		int boardWidth = board.width;
+		int boardHeight = board.height;
 		
 		// on traite d'abord les items
 		// TODO en supposant qu'on ne peut en toucher qu'un seul en une itération
