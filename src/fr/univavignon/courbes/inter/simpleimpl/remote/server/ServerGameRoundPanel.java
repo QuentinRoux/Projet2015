@@ -26,12 +26,14 @@ import javax.swing.SwingUtilities;
 import fr.univavignon.courbes.common.Constants;
 import fr.univavignon.courbes.common.Direction;
 import fr.univavignon.courbes.common.Player;
+import fr.univavignon.courbes.common.Profile;
 import fr.univavignon.courbes.common.UpdateInterface;
 import fr.univavignon.courbes.inter.ServerGameHandler;
 import fr.univavignon.courbes.inter.simpleimpl.AbstractRoundPanel;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.network.ServerCommunication;
+import fr.univavignon.courbes.stats.Stats;
 
 /**
  * Panel utilisé pour afficher le jeu proprement dit,
@@ -91,10 +93,12 @@ public class ServerGameRoundPanel extends AbstractRoundPanel implements ServerGa
 	@Override
 	public void run()
 	{	// on joue la partie (i.e. plusieurs manches)
+		
 		playMatch();
-		
+		Stats statistique;
+		statistique.winner=ID_Winner;
 		// TODO la mise à jour des stats irait ici
-		
+		statistique.Chargement_Joueurs(round.players,localPlayerNbr);
 		// on repart au menu principal
 		serverCom.closeServer();
 		serverCom.setGameHandler(null);

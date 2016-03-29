@@ -64,11 +64,14 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	private static final String GAME_NAME = "Courbes";
 	/** Version du jeu */
 	private static final String GAME_VERSION = "1";
+	/** Son global aux menus */
+	public Sound glob = new Sound("res/sounds/fresh-sparks-01.wav");
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 */
 	public MainWindow()
 	{	super();
+		glob.start();
 		initWindow();
 	}
 	
@@ -192,6 +195,7 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				currentPanel = new LocalGamePlayerSelectionPanel(this);
 				break;
 			case LOCAL_GAME_PLAY:
+				glob.stop(); //TODO ça marche pas, expliquez-moi monsieur.
 				currentPanel = new LocalGameRoundPanel(this);
 				break;
 			case SERVER_GAME_PORT_SELECTION:
@@ -204,6 +208,7 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				currentPanel = new ServerGameRemotePlayerSelectionPanel(this);
 				break;
 			case SERVER_GAME_PLAY:
+				glob.stop(); //TODO ça marche pas, expliquez-moi monsieur.
 				currentPanel = new ServerGameRoundPanel(this);
 				break;
 			case CLIENT_GAME_CONNECTION:
@@ -219,6 +224,7 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				currentPanel = new ClientGameWaitPanel(this);
 				break;
 			case CLIENT_GAME_PLAY:
+				glob.stop(); //TODO ça marche pas, expliquez-moi monsieur.
 				currentPanel = new ClientGameRoundPanel(this);
 				break;
 			case PROFILE_LIST:

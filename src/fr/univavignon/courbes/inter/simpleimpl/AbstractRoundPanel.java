@@ -37,6 +37,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.local.KeyManager;
 import fr.univavignon.courbes.physics.PhysicsEngine;
 import fr.univavignon.courbes.physics.simpleimpl.PhysicsEngineImpl;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Panel utilisé pour afficher le jeu proprement dit,
@@ -57,7 +58,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	protected double PHYS_DELAY = 1000f / UPS; 
 	/** délai entre deux màj graphiques en ms */
 	protected double GRAPH_DELAY = 1000f / FPS;
-	
+	Sound t=new Sound("res/sounds/on-the-run-01.wav");
 	/**
 	 * Crée une fenêtre contenant le plateau du jeu et les données du jeu.
 	 * 
@@ -66,7 +67,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	 */
 	public AbstractRoundPanel(MainWindow mainWindow)
 	{	super();
-		
+		t.start();
 		this.mainWindow = mainWindow;
 		init();
 		start();
@@ -98,13 +99,14 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	protected boolean matchOver = false;
 	/** Indique quel serpent a été éliminé par quoi : {@code null} pour pas éliminé, une <i>valeur négative</i> pour la bordure, et {@code playerId} pour un serpent (possiblement le joueur lui-même) */
 	protected Integer[] eliminatedBy;
+	/** Indique l'id du gagnant */
+	public int ID_Winner;
 	
 	/**
 	 * Initialise le panel et les objets qu'il utilise.
 	 */
 	protected void init()
 	{	round = mainWindow.currentRound;
-		
 		physicsEngine = new PhysicsEngineImpl();
 		physicsEngine.init(round.players.length);
 		round.board = physicsEngine.getBoard();
@@ -139,6 +141,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 
 		do
 		{	// on joue le round
+			
 			playRound();
 			
 			// on met à jour les score totaux
@@ -158,6 +161,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 			if(matchOver)
 			{	Profile profile = players[maxIdx].profile;
 				String name = profile.userName;
+				ID_Winner=profile.profileId;
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+"a gagné la partie !");
 			}
 			
@@ -255,7 +259,8 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	 */
 	protected void resetRound()
 	{	
-		//TODO new partie = new sound
+		//t.stop();
+		//t.start();
 		keyManager.reset();
 		graphicDisplay.reset();
 	

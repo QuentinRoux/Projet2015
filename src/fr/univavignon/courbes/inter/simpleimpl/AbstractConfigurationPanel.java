@@ -43,7 +43,6 @@ import fr.univavignon.courbes.sounds.Sound;
 public abstract class AbstractConfigurationPanel extends JPanel implements ActionListener
 {	/** Numéro de série */
 	private static final long serialVersionUID = 1L;
-	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les participants locaux à une partie.
@@ -56,7 +55,6 @@ public abstract class AbstractConfigurationPanel extends JPanel implements Actio
 	public AbstractConfigurationPanel(MainWindow mainWindow, String title)
 	{	super();
 		this.mainWindow = mainWindow;
-		
 		init(title);
 	}
 	

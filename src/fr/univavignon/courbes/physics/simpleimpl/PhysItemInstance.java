@@ -24,6 +24,7 @@ import fr.univavignon.courbes.common.Constants;
 import fr.univavignon.courbes.common.ItemInstance;
 import fr.univavignon.courbes.common.ItemType;
 import fr.univavignon.courbes.common.Snake;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Classe fille de {@link ItemInstance}, permettant d'intégrer
@@ -38,7 +39,7 @@ public class PhysItemInstance extends ItemInstance
 	private static int ID_COUNT = 0;
 	/** Générateur aléatoire utilisé lors de l'apparition d'items */
 	private static final Random RANDOM = new Random();
-	
+	Sound t= new Sound("res/sounds/drop.wav");
 	/**
 	 * Crée un item placé à la position spécifiée.
 	 * 
@@ -201,6 +202,7 @@ public class PhysItemInstance extends ItemInstance
 		// on met à jour le temps restant
 		remainingTime = remainingTime - elapsedTime;
 		boolean remove = remainingTime<=0;
+		t.stop();
 		return remove;
 	}
 	
@@ -217,6 +219,7 @@ public class PhysItemInstance extends ItemInstance
 	{	x = -1;
 		y = -1;
 		
+		t.start();
 		// item collectif avec effet ponctuel
 		if(type==ItemType.COLLECTIVE_CLEAN)
 			board.mustClean = true;
