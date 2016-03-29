@@ -33,6 +33,7 @@ import fr.univavignon.courbes.common.ItemInstance;
 import fr.univavignon.courbes.common.Position;
 import fr.univavignon.courbes.common.Snake;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Classe fille de {@link Snake}, permettant d'intégrer
@@ -45,6 +46,8 @@ public class PhysSnake extends Snake
 	private static final long serialVersionUID = 1L;
 	/** Taille maximale de la file {@link #prevDisks} */
 	private final static int PREV_DISK_SIZE = 20;
+	Sound t=new Sound("res/sounds/impact.wav");
+	Sound t2=new Sound("res/sounds/drop.wav");
 	
 	/**
 	 * Crée le serpent associé au numéro indiqué, pour le profil
@@ -215,14 +218,17 @@ public class PhysSnake extends Snake
 	 * 		Temps écoulé depuis la dernière itération.
 	 */
 	private void updateItemsEffect(long elapsedTime)
-	{	resetCharacs();
-		
+	{	
+		resetCharacs();
 		Iterator<ItemInstance> it = currentItems.iterator();
 		while(it.hasNext())
-		{	PhysItemInstance item = (PhysItemInstance)it.next();
+		{	
+			PhysItemInstance item = (PhysItemInstance)it.next();
 			boolean remove = item.updateEffect(elapsedTime,this);
 			if(remove)
+			{
 				it.remove();
+			}
 		}
 	}
 	
@@ -365,6 +371,8 @@ public class PhysSnake extends Snake
 					if(dist<=Constants.ITEM_RADIUS)
 					{	// on indique qu'on a touché un item (pour sortir des deux boucles)
 						itemCollided = true;
+						t2.start();
+						t2.cancel();
 						// on le sort de la liste des items encore en jeu
 						it.remove();
 						board.removedItems.add(item.itemId);
@@ -387,6 +395,8 @@ public class PhysSnake extends Snake
 				{	// on marque la collision
 					eliminatedBy = -1;
 					result = true;
+					t.start();
+					t.cancel();
 					// on restreint la nouvelle position du serpent
 					it.remove();
 				}
@@ -404,6 +414,8 @@ public class PhysSnake extends Snake
 					if(changed)
 					{	eliminatedBy = i;
 						result = true;
+						t.start();
+						t.cancel();
 					}
 				}
 				i++;

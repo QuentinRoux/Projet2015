@@ -254,7 +254,9 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	 * la partie, pour pouvoir enchaîner une autre manche.
 	 */
 	protected void resetRound()
-	{	keyManager.reset();
+	{	
+		//TODO new partie = new sound
+		keyManager.reset();
 		graphicDisplay.reset();
 	
 		Snake[] snakes = round.board.snakes;
