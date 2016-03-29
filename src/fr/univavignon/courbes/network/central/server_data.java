@@ -64,9 +64,9 @@ public class server_data {
      * @param id_server
      * @throws Exception
      */
-    public void remove_player_server(int id_player, int id_server) throws Exception {
+    public void remove_player_server(int id_player) throws Exception {
         URL url_ip = new URL("https://pedago02a.univ-avignon.fr/~uapv1602792/projet2015/remove_player_server.php");
-        String data= "id_player="+id_player+"&&id_server="+id_server;
+        String data= "id_player="+id_player;
         HttpURLConnection con = (HttpURLConnection) url_ip.openConnection();
         con.setDoInput(true);
         con.setDoOutput(true);
@@ -166,5 +166,27 @@ public class server_data {
                                 con.getInputStream()));
         return in.readLine();
     }
+    
+    public String getElo(String server_ip) throws Exception {
+        URL url_ip = new URL("https://pedago02a.univ-avignon.fr/~uapv1602792/projet2015/get_id_server.php");
+        String data= "server_ip="+server_ip;
+        HttpURLConnection con = (HttpURLConnection) url_ip.openConnection();
+        con.setDoInput(true);
+        con.setDoOutput(true);
+        con.setUseCaches(false);
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type",
+                "application/x-www-form-urlencoded");
+        DataOutputStream dataOut = new DataOutputStream(
+                con.getOutputStream());
+        dataOut.writeBytes(data);
+        dataOut.flush();
+        dataOut.close();
+        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(
+                                con.getInputStream()));
+        return in.readLine();
+    }
+    
 }
 

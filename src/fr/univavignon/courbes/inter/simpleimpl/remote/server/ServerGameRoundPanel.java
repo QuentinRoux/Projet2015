@@ -96,18 +96,12 @@ public class ServerGameRoundPanel extends AbstractRoundPanel implements ServerGa
 		
 		long time=System.currentTimeMillis();
 		playMatch();
-<<<<<<< HEAD
 		long temps_partie=(System.currentTimeMillis()-time);
 	//	statistique.winner=ID_Winner;
-=======
 		//statistique.winner=ID_Winner;
->>>>>>> branch 'master' of https://github.com/QuentinRoux/Projet2015.git
 		// TODO la mise à jour des stats irait ici
-<<<<<<< HEAD
 		Stats statistique=new Stats(ID_Winner,nb_round,round.players,localPlayerNbr,temps_partie);
-=======
 		//statistique.Chargement_Joueurs(round.players,localPlayerNbr);
->>>>>>> branch 'master' of https://github.com/QuentinRoux/Projet2015.git
 		// on repart au menu principal
 		serverCom.closeServer();
 		serverCom.setGameHandler(null);
