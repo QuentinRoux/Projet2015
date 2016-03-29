@@ -1,4 +1,3 @@
-// TODO nouvelle interface (liste serveur)
 package fr.univavignon.courbes.inter.central;
 
 /*
@@ -28,6 +27,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.network.ClientCommunication;
+import fr.univavignon.courbes.network.central.server_data;
 import fr.univavignon.courbes.network.simpleimpl.client.ClientCommunicationImpl;
 
 
@@ -78,17 +78,23 @@ public class ServerGameSelectionConnectionPanel extends AbstractConnectionPanel 
 		clientCom.setErrorHandler(mainWindow);
 		clientCom.setConnectionHandler(this);
 		
-		/*String ipStr = ipTextField.getText();
-		clientCom.setIp(ipStr);
-		SettingsManager.setLastServerIp(ipStr);
-		
-		String portStr = portTextField.getText();
-		int port = Integer.parseInt(portStr);
+		clientCom.setIp(ip_server);
+		SettingsManager.setLastServerIp(ip_server);
+		int port = Integer.parseInt(port_server.toString());
 		clientCom.setPort(port);
-		SettingsManager.setLastServerPort(port);*/
+		SettingsManager.setLastServerPort(port);
 		
 		// puis on se connecte
 		boolean result = clientCom.launchClient();
+		if(result)
+		{
+			server_data data = new server_data();
+			try {
+				;//data.add_player_server(id_player, id_server);//TODO
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	 
+		}
 		return result;
 	}
 	

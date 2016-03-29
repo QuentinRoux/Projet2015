@@ -19,19 +19,28 @@ package fr.univavignon.courbes.inter.central;
  */
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
+import fr.univavignon.courbes.inter.ClientConnectionHandler;
 import fr.univavignon.courbes.inter.simpleimpl.AbstractConfigurationPanel;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
-import fr.univavignon.courbes.inter.simpleimpl.local.LocalPlayerConfigPanel;
+import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
+import fr.univavignon.courbes.network.ClientCommunication;
+import fr.univavignon.courbes.network.central.server_data;
+import fr.univavignon.courbes.network.simpleimpl.client.ClientCommunicationImpl;
 
 /**
  * Classe permettant à l'utilisateur de choisir un serveur
@@ -41,7 +50,15 @@ import fr.univavignon.courbes.inter.simpleimpl.local.LocalPlayerConfigPanel;
 public abstract class AbstractConnectionPanel extends AbstractConfigurationPanel
 {	/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * 
+	 */
+	String ip_server;
+	/**
+	 * 
+	 */
+	String port_server;
+	String nom_server;
 	/**
 	 * Construit un nouveau panel chargé de connecter le client à son serveur.
 	 * 
@@ -70,7 +87,7 @@ public abstract class AbstractConnectionPanel extends AbstractConfigurationPanel
 		Dimension dim;
 		Border border = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 		
-		JLabel ipLabel = new JLabel("ip de la partie");
+		JLabel ipLabel = new JLabel("Nom de la partie");
 		ipLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		dim = new Dimension(500,height);
 		ipLabel.setPreferredSize(dim);
@@ -92,25 +109,67 @@ public abstract class AbstractConnectionPanel extends AbstractConfigurationPanel
 
 		titlePanel.add(Box.createHorizontalGlue());
 		
-	//	for(int i=0;i<Math.max(1,getMinPlayerNbr());i++)
-	//		addServer();
-		
-		
-		
-		JLabel ex1 = new JLabel("192.168.0.1");
-		JLabel jex1 = new JLabel("4/6");
-		panel.add(ex1);
-		panel.add(jex1);
-		JLabel ex2 = new JLabel("10.104.23.108");
-		JLabel jex2 = new JLabel("8/8");
-		panel.add(ex2);
-		panel.add(jex2);
-
-		JLabel ex3 = new JLabel("10.122.3.176");
-		JLabel jex3 = new JLabel("1/3");
-		panel.add(ex3);
-		panel.add(jex3);
-		add(panel);
+		ArrayList<String> list_data;
+		server_data data = new server_data();
+		try {
+			list_data=data.retrieve_data();
+			for( String ip_player_server:list_data )
+			{
+				String[] parts = ip_player_server.split(" ");
+				ip_server = parts[0];
+				port_server = parts[1];
+				String nb_player = parts[2];
+				String max_player = parts[3];
+				nom_server = parts[4];
+				JPanel ipPanel1 = new JPanel();
+				layout = new BoxLayout(ipPanel1, BoxLayout.LINE_AXIS);
+				ipPanel1.setLayout(layout);
+				
+				JButton ex1 = new JButton(nom_server);
+				ex1.addActionListener(new ActionListener()
+				{
+				  public void actionPerformed(ActionEvent e)
+				  {
+					  nextStep();
+						
+				   /* String ip = ip_server;
+				    int port = Integer.parseInt(port_server.toString());
+					ClientCommunication clientCom = new ClientCommunicationImpl();
+					mainWindow.clientCom = clientCom;
+					clientCom.setErrorHandler(mainWindow);
+					ClientConnectionHandler autrement = null;
+					clientCom.setConnectionHandler(autrement);
+					
+					clientCom.setIp(ip);
+					SettingsManager.setLastServerIp(ip);
+					
+					clientCom.setPort(port);
+					SettingsManager.setLastServerPort(port);
+					
+					// puis on se connecte
+					clientCom.launchClient();*/			
+				  }
+				});
+				ex1.setHorizontalAlignment(SwingConstants.CENTER);
+				dim = new Dimension(500,height);
+				ex1.setPreferredSize(dim);
+				ex1.setMaximumSize(dim);
+				ex1.setMinimumSize(dim);
+				
+				JLabel jex1 = new JLabel(nb_player+'/'+max_player);
+				jex1.setHorizontalAlignment(SwingConstants.CENTER);
+				dim = new Dimension(600,height);
+				jex1.setPreferredSize(dim);
+				jex1.setMaximumSize(dim);
+				jex1.setMinimumSize(dim);
+				
+				ipPanel1.add(ex1);
+				ipPanel1.add(jex1);
+				panel.add(ipPanel1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

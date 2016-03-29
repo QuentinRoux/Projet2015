@@ -32,6 +32,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 import fr.univavignon.courbes.inter.simpleimpl.remote.AbstractConnectionPanel;
 import fr.univavignon.courbes.network.ServerCommunication;
+import fr.univavignon.courbes.network.central.server_data;
 import fr.univavignon.courbes.network.simpleimpl.server.ServerCommunicationImpl;
 
 /**
@@ -118,7 +119,6 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 		int port = Integer.parseInt(portStr);
 		SettingsManager.setLastPort(port);
 		mainWindow.serverCom.setPort(port);
-	
 		mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
 	}
 
@@ -137,8 +137,8 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 	@Override
 	public void itemStateChanged(ItemEvent e)
 	{	if(e.getSource()==publicBox)
-		{	System.out.println("Modification de la JCheckBox: "+publicBox.isSelected());
-			// TODO à compléter avec le traitement relatif au serveur central...
+		{	
+			System.out.println("Modification de la JCheckBox: "+publicBox.isSelected());
 		}
 	}
 }
