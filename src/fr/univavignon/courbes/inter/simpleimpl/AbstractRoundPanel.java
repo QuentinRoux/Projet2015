@@ -98,6 +98,8 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	protected boolean matchOver = false;
 	/** Indique quel serpent a été éliminé par quoi : {@code null} pour pas éliminé, une <i>valeur négative</i> pour la bordure, et {@code playerId} pour un serpent (possiblement le joueur lui-même) */
 	protected Integer[] eliminatedBy;
+	/** Indique l'id du gagnant */
+	public int ID_Winner;
 	
 	/**
 	 * Initialise le panel et les objets qu'il utilise.
@@ -158,6 +160,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 			if(matchOver)
 			{	Profile profile = players[maxIdx].profile;
 				String name = profile.userName;
+				ID_Winner=profile.profileId;
 				JOptionPane.showMessageDialog(mainWindow, "Le joueur "+name+"a gagné la partie !");
 			}
 			

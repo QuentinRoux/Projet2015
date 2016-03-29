@@ -1,2 +1,0 @@
-Les fichiers JAR de toutes bibliothèques supplémentaires doivent être placée dans ce dossier.
-Si vous voulez lancer le jeu hors d'Eclipse, il faut de plus penser à les rajouter dans les scripts de lancement situés dans la racine du projet.
