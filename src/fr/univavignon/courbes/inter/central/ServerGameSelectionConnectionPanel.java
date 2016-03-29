@@ -1,5 +1,9 @@
-// TODO nouvelle interface (liste serveur)
-package fr.univavignon.courbes.inter.simpleimpl.remote.client;
+package fr.univavignon.courbes.inter.central;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /*
  * Courbes
@@ -23,12 +27,14 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import fr.univavignon.courbes.inter.ClientConnectionHandler;
+import fr.univavignon.courbes.inter.central.AbstractConnectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.SettingsManager;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
-import fr.univavignon.courbes.inter.simpleimpl.remote.AbstractConnectionPanel;
 import fr.univavignon.courbes.network.ClientCommunication;
+import fr.univavignon.courbes.network.central.server_data;
 import fr.univavignon.courbes.network.simpleimpl.client.ClientCommunicationImpl;
+
 
 /**
  * Classe permettant à l'utilisateur de spécifier les information de connexion
@@ -36,8 +42,8 @@ import fr.univavignon.courbes.network.simpleimpl.client.ClientCommunicationImpl;
  * 
  * @author	L3 Info UAPV 2015-16
  */
-public class ClientGameServerConnectionPanel extends AbstractConnectionPanel implements ClientConnectionHandler
-{	/** Numéro de série de la classe */
+public class ServerGameSelectionConnectionPanel extends AbstractConnectionPanel implements ClientConnectionHandler
+{/** Numéro de série de la classe */
 	private static final long serialVersionUID = 1L;
 	/** Title du panel */
 	private static final String TITLE = "Connexion au serveur";
@@ -48,7 +54,7 @@ public class ClientGameServerConnectionPanel extends AbstractConnectionPanel imp
 	 * @param mainWindow
 	 * 		Fenêtre principale.
 	 */
-	public ClientGameServerConnectionPanel(MainWindow mainWindow)
+	public ServerGameSelectionConnectionPanel(MainWindow mainWindow)
 	{	super(mainWindow,TITLE);
 	}
 	
@@ -77,17 +83,49 @@ public class ClientGameServerConnectionPanel extends AbstractConnectionPanel imp
 		clientCom.setErrorHandler(mainWindow);
 		clientCom.setConnectionHandler(this);
 		
-		String ipStr = ipTextField.getText();
-		clientCom.setIp(ipStr);
-		SettingsManager.setLastServerIp(ipStr);
-		
-		String portStr = portTextField.getText();
-		int port = Integer.parseInt(portStr);
+		clientCom.setIp(ip_server);
+		SettingsManager.setLastServerIp(ip_server);
+		int port = Integer.parseInt(port_server.toString());
 		clientCom.setPort(port);
 		SettingsManager.setLastServerPort(port);
 		
 		// puis on se connecte
 		boolean result = clientCom.launchClient();
+		if(result)
+		{
+			String id_player;
+		
+			String id_server;
+			server_data data = new server_data();
+			try {
+				String nom = mainWindow.clientPlayer.profile.userName;
+				String password="";
+				String fichier ="res/profiles/profiles.txt";
+				
+				//lecture du fichier texte	
+				try{
+					InputStream ips=new FileInputStream(fichier); 
+					InputStreamReader ipsr=new InputStreamReader(ips);
+					BufferedReader br=new BufferedReader(ipsr);
+					String ligne;
+					while ((ligne=br.readLine())!=null){
+						String[] parts = ligne.split(",");
+						if(parts[0].compareTo(nom)==0)
+							password=parts[4];
+					}
+					br.close(); 
+				}		
+				catch (Exception e){
+					System.out.println(e.toString());
+				}
+				
+				id_player=data.get_id_player(nom,password);
+				id_server=data.get_id_server(ip_server);
+				data.add_player_server(id_player, id_server);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	 
+		}
 		return result;
 	}
 	
@@ -118,7 +156,7 @@ public class ClientGameServerConnectionPanel extends AbstractConnectionPanel imp
 	protected void nextStep()
 	{	// on se connecte
 		boolean connected = connect();
-		mainWindow.clientCom.setCentral(true);
+		
 		if(connected)
 		{	// on désactive les boutons le temps de l'attente
 			backButton.setEnabled(false);
@@ -140,3 +178,5 @@ public class ClientGameServerConnectionPanel extends AbstractConnectionPanel imp
 		mainWindow.displayPanel(PanelName.CLIENT_GAME_PLAYER_SELECTION);
 	}
 }
+
+	

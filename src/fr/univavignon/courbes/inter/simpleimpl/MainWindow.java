@@ -36,6 +36,7 @@ import javax.swing.SwingUtilities;
 import fr.univavignon.courbes.common.Player;
 import fr.univavignon.courbes.common.Round;
 import fr.univavignon.courbes.inter.ErrorHandler;
+import fr.univavignon.courbes.inter.central.ServerGameSelectionConnectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.local.LocalGamePlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.local.LocalGameRoundPanel;
 import fr.univavignon.courbes.inter.simpleimpl.profiles.ProfileListPanel;
@@ -163,6 +164,8 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 		
 		/** Configuration des informations de connexion pour une partie client */
 		CLIENT_GAME_CONNECTION,
+		/** Sélection du serveur pour une partie réseau */
+		SERVER_GAME_CONNECTION,
 		/** Sélection du joueur local géré par ce client */
 		CLIENT_GAME_PLAYER_SELECTION,
 		/** Attente du début de partie */
@@ -210,6 +213,9 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				break;
 			case CLIENT_GAME_CONNECTION:
 				currentPanel = new ClientGameServerConnectionPanel(this);
+				break;
+			case SERVER_GAME_CONNECTION:
+				currentPanel = new ServerGameSelectionConnectionPanel(this);
 				break;
 			case CLIENT_GAME_PLAYER_SELECTION:
 				currentPanel = new ClientGamePlayerSelectionPanel(this);

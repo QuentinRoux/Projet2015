@@ -19,6 +19,10 @@ package fr.univavignon.courbes.inter.simpleimpl.local;
  */
 
 import java.awt.Dimension;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -34,6 +38,7 @@ import fr.univavignon.courbes.common.Profile;
 import fr.univavignon.courbes.common.Round;
 import fr.univavignon.courbes.inter.simpleimpl.AbstractPlayerSelectionPanel;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
+import fr.univavignon.courbes.network.central.server_data;
 
 /**
  * Panel permettant de sélectionner les joueurs locaux participant à une partie.
@@ -138,7 +143,8 @@ public abstract class AbstractLocalPlayerSelectionPanel extends AbstractPlayerSe
 		// on compare toutes les paires de profils sélectionnés
 		int i1 = 0;
 		while(i1<selectedProfiles.size() && isReady)
-		{	LocalPlayerConfigPanel lpc1 = selectedProfiles.get(i1);
+		{	
+			LocalPlayerConfigPanel lpc1 = selectedProfiles.get(i1);
 			Player player1 = lpc1.player;
 			int left1 = player1.leftKey;
 			int right1 = player1.rightKey;
@@ -148,7 +154,8 @@ public abstract class AbstractLocalPlayerSelectionPanel extends AbstractPlayerSe
 				isReady = false;
 			
 			else
-			{	int i2 = i1 + 1;
+			{
+				int i2 = i1 + 1;
 				while(i2<selectedProfiles.size() && isReady)
 				{	LocalPlayerConfigPanel lpsc = selectedProfiles.get(i2);
 					Player player2 = lpsc.player;
@@ -165,8 +172,87 @@ public abstract class AbstractLocalPlayerSelectionPanel extends AbstractPlayerSe
 				i1++;
 			}
 		}
-		
+		if(isReady==true && mainWindow.serverCom!=null && mainWindow.serverCom.getCentral())
+		{
+			for(int i=0; i<selectedProfiles.size() ; i++)
+			{
+				LocalPlayerConfigPanel lpc1 = selectedProfiles.get(i);
+				if(i==0)
+					insertServer(lpc1.player.profile.userName);		
+				insertPlayer(lpc1.player.profile.userName);		
+			}
+		}
 		return isReady;
+	}
+	
+	public void insertPlayer(String nom)
+	{
+			server_data data = new server_data();
+			//String nom = mainWindow.clientPlayer.profile.userName;
+			String password="";
+			String fichier ="res/profiles/profiles.txt";
+			
+			//lecture du fichier texte	
+			try{
+				InputStream ips=new FileInputStream(fichier); 
+				InputStreamReader ipsr=new InputStreamReader(ips);
+				BufferedReader br=new BufferedReader(ipsr);
+				String ligne;
+				while ((ligne=br.readLine())!=null){
+					String[] parts = ligne.split(",");
+					if(parts[0].compareTo(nom)==0)
+						password=parts[4];
+				}
+				br.close(); 
+			}		
+			catch (Exception e){
+				System.out.println(e.toString());
+			}
+				
+			try {
+				String id_player=data.get_id_player(nom,password);
+				String id_server=data.get_id_server(mainWindow.serverCom.getIp());
+				data.add_player_server(id_player,id_server );
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+		
+	public void insertServer(String nom)
+	{
+			server_data data = new server_data();
+			String id_player;
+			//String nom = mainWindow.clientPlayer.profile.userName;
+			String password="";
+			String fichier ="res/profiles/profiles.txt";
+			
+			//lecture du fichier texte	
+			try{
+				InputStream ips=new FileInputStream(fichier); 
+				InputStreamReader ipsr=new InputStreamReader(ips);
+				BufferedReader br=new BufferedReader(ipsr);
+				String ligne;
+				while ((ligne=br.readLine())!=null){
+					String[] parts = ligne.split(",");
+					if(parts[0].compareTo(nom)==0)
+					{
+						password=parts[4];
+					}
+				}
+				br.close(); 
+			}		
+			catch (Exception e){
+				System.out.println(e.toString());
+			}		
+			try {
+				id_player=data.get_id_player(nom,password);
+				String server_name = "serveur_de_"+nom;
+				data.add_server(getMaxPlayerNbr(), mainWindow.serverCom.getIp(), mainWindow.serverCom.getPort(), server_name, id_player);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	@Override

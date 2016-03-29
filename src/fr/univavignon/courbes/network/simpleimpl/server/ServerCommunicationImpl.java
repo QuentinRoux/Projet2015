@@ -85,7 +85,7 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 	////////////////////////////////////////////////////////////////
 	/** Variable qui contient le port de ce serveur */
 	private int port = Constants.DEFAULT_PORT;//2345;
-
+	private boolean central = false; 
 	@Override
 	public int getPort()
 	{	return port;
@@ -94,6 +94,18 @@ public class ServerCommunicationImpl implements ServerCommunication, Runnable
 	@Override
 	public void setPort(int port)
 	{	this.port = port;
+	}
+	
+	@Override
+	public void setCentral(boolean central)
+	{
+		this.central = central;
+	}
+	
+	@Override
+	public boolean getCentral()
+	{
+		return central;
 	}
 	
 	////////////////////////////////////////////////////////////////
