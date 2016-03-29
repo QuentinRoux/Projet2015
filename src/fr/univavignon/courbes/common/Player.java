@@ -52,6 +52,8 @@ public class Player implements Serializable
 	public int totalScore;
 	/** Score partiel du joueur pour la manche courante */
 	public int roundScore;
+	/**  Temps de vie du joueur dans la manche courante */
+	public int Temps_Vie;
 	
 	////////////////////////////////////////////////////////////////
 	////	COMMANDES
