@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 
 import fr.univavignon.courbes.common.Round;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Panel permettant de sélectionner les joueurs participant à une partie.
@@ -46,7 +47,6 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 public abstract class AbstractPlayerSelectionPanel<T> extends AbstractConfigurationPanel
 {	/** Numéro de série */
 	private static final long serialVersionUID = 1L;
-	
 	/**
 	 * Crée et initialise le panel permettant de sélectionner
 	 * les participants locaux à une partie.
@@ -186,7 +186,7 @@ public abstract class AbstractPlayerSelectionPanel<T> extends AbstractConfigurat
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{	super.actionPerformed(e);
-		
+	
 		if(e.getSource()==playerNbrCombo)
 			comboboxChanged();
 	}

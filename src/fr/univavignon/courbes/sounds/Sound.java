@@ -8,21 +8,18 @@ import java.io.InputStream;
 
 import javax.sound.sampled.*;
 
+//TODO trouver un moyen de faire en sorte que la musique change entre différents plateau.
 public class Sound extends Thread{
     private AudioFormat format;
     private byte[] samples;
     private String chemin;
+    public static int choix;
     
-    // lancé par start() dans le luncher
-    public void run()
+    @Override public void run()
     {
-
-    	Sound player = new Sound(chemin);
-        InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-        player.play(stream);
-    	System.out.println("test");
+            InputStream stream = new ByteArrayInputStream(this.getSamples()); 
+        	this.play(stream);
     }
-    
     /**
      * 
      * @param filename le lien vers le fichier song (URL ou absolute path)
@@ -85,13 +82,3 @@ public class Sound extends Thread{
      line.close();
     }
 }
-
-/*
-	A insérer dans le code:
-	
-	Sound player = new Sound("chemin relatif au son");
-    InputStream stream = new ByteArrayInputStream(player.getSamples()); 
-    player.play(stream);
-  	
-  	pour lire le fichier son voulu.
-*/

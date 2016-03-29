@@ -22,8 +22,10 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -47,6 +49,7 @@ import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRemotePla
 import fr.univavignon.courbes.inter.simpleimpl.remote.server.ServerGameRoundPanel;
 import fr.univavignon.courbes.network.ClientCommunication;
 import fr.univavignon.courbes.network.ServerCommunication;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Menu principal du jeu.
@@ -60,13 +63,14 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	private static final String GAME_NAME = "Courbes";
 	/** Version du jeu */
 	private static final String GAME_VERSION = "1";
-	
+	/** Son global aux menus */
+	public Sound glob = new Sound("res/sounds/fresh-sparks-01.wav");
 	/**
 	 * Crée le menu principal et tous ses composants graphiques.
 	 */
 	public MainWindow()
 	{	super();
-		
+		glob.start();
 		initWindow();
 	}
 	
@@ -188,6 +192,7 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				currentPanel = new LocalGamePlayerSelectionPanel(this);
 				break;
 			case LOCAL_GAME_PLAY:
+				glob.stop(); //TODO ça marche pas, expliquez-moi monsieur.
 				currentPanel = new LocalGameRoundPanel(this);
 				break;
 			case SERVER_GAME_PORT_SELECTION:
@@ -200,6 +205,7 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				currentPanel = new ServerGameRemotePlayerSelectionPanel(this);
 				break;
 			case SERVER_GAME_PLAY:
+				glob.stop(); //TODO ça marche pas, expliquez-moi monsieur.
 				currentPanel = new ServerGameRoundPanel(this);
 				break;
 			case CLIENT_GAME_CONNECTION:
@@ -212,6 +218,7 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 				currentPanel = new ClientGameWaitPanel(this);
 				break;
 			case CLIENT_GAME_PLAY:
+				glob.stop(); //TODO ça marche pas, expliquez-moi monsieur.
 				currentPanel = new ClientGameRoundPanel(this);
 				break;
 			case PROFILE_LIST:
@@ -234,7 +241,8 @@ public class MainWindow extends JFrame implements ErrorHandler, WindowListener
 	 * Met à jour le titre de la fenêtre.
 	 */
 	public void updateTitle()
-	{	String title = GAME_NAME + " v" + GAME_VERSION;
+	{	
+		String title = GAME_NAME + " v" + GAME_VERSION;
 		if(serverCom!=null)
 		{	String ipStr = serverCom.getIp();
 			title = title + " - " + ipStr;

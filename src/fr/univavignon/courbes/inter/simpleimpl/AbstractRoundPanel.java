@@ -37,6 +37,7 @@ import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.local.KeyManager;
 import fr.univavignon.courbes.physics.PhysicsEngine;
 import fr.univavignon.courbes.physics.simpleimpl.PhysicsEngineImpl;
+import fr.univavignon.courbes.sounds.Sound;
 
 /**
  * Panel utilisé pour afficher le jeu proprement dit,
@@ -57,7 +58,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	protected double PHYS_DELAY = 1000f / UPS; 
 	/** délai entre deux màj graphiques en ms */
 	protected double GRAPH_DELAY = 1000f / FPS;
-	
+	Sound t=new Sound("res/sounds/on-the-run-01.wav");
 	/**
 	 * Crée une fenêtre contenant le plateau du jeu et les données du jeu.
 	 * 
@@ -66,7 +67,7 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	 */
 	public AbstractRoundPanel(MainWindow mainWindow)
 	{	super();
-		
+		t.start();
 		this.mainWindow = mainWindow;
 		init();
 		start();
@@ -106,7 +107,6 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	 */
 	protected void init()
 	{	round = mainWindow.currentRound;
-		
 		physicsEngine = new PhysicsEngineImpl();
 		physicsEngine.init(round.players.length);
 		round.board = physicsEngine.getBoard();
@@ -258,7 +258,10 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	 * la partie, pour pouvoir enchaîner une autre manche.
 	 */
 	protected void resetRound()
-	{	keyManager.reset();
+	{	
+		//t.stop();
+		//t.start();
+		keyManager.reset();
 		graphicDisplay.reset();
 	
 		Snake[] snakes = round.board.snakes;
