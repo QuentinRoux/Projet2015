@@ -118,7 +118,7 @@ public class ClientGameServerConnectionPanel extends AbstractConnectionPanel imp
 	protected void nextStep()
 	{	// on se connecte
 		boolean connected = connect();
-		
+		mainWindow.clientCom.setCentral(true);
 		if(connected)
 		{	// on désactive les boutons le temps de l'attente
 			backButton.setEnabled(false);

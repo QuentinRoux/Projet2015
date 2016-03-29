@@ -30,6 +30,7 @@ public class server_data {
         while ((line = in.readLine()) != null)
         {
         	inputList.add(line);
+        	System.out.println(line);
         }
         in.close();
         return inputList;
@@ -40,7 +41,7 @@ public class server_data {
      * @param id_server
      * @throws Exception
      */
-    public void add_player_server(int id_player, int id_server) throws Exception {
+    public void add_player_server(String id_player, String id_server) throws Exception {
         URL url_ip = new URL("https://pedago02a.univ-avignon.fr/~uapv1602792/projet2015/add_player_server.php");
         String data= "id_player="+id_player+"&&id_server="+id_server;
         HttpURLConnection con = (HttpURLConnection) url_ip.openConnection();
@@ -55,6 +56,7 @@ public class server_data {
         dataOut.writeBytes(data);
         dataOut.flush();
         dataOut.close();
+        new BufferedReader(new InputStreamReader(con.getInputStream()));   
     }
     
     /**
@@ -79,9 +81,31 @@ public class server_data {
         dataOut.close();
     }
     
-    public void add_server(int max_player, int server_ip, int server_name, int id_player) throws Exception {
-        URL url_ip = new URL("https://pedago02a.univ-avignon.fr/~uapv1602792/projet2015/remove_player_server.php");
-        String data= "max_player="+max_player+"&&server_ip="+server_ip+"&&server_name="+server_name+"&&id_player="+id_player;
+    public void add_server(int max_player, String server_ip, int port, String server_name, String id_player) throws Exception {
+        URL url_ip = new URL("https://pedago02a.univ-avignon.fr/~uapv1602792/projet2015/add_server.php");
+        String data= "max_player="+max_player+"&&server_ip="+server_ip+"&&port="+port+"&&server_name="+server_name+"&&id_player="+id_player;
+        HttpURLConnection con = (HttpURLConnection) url_ip.openConnection();
+        con.setDoInput(true);
+        con.setDoOutput(true);
+        con.setUseCaches(false);
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type",
+                "application/x-www-form-urlencoded");
+        DataOutputStream dataOut = new DataOutputStream(
+                con.getOutputStream());
+        dataOut.writeBytes(data);
+        dataOut.flush();
+        dataOut.close();    
+        new BufferedReader(new InputStreamReader(con.getInputStream()));       
+    }
+    
+    /**
+     * @param ip_server
+     * @throws Exception
+     */
+    public void remove_server(String ip_server) throws Exception {
+        URL url_ip = new URL("https://pedago02a.univ-avignon.fr/~uapv1602792/projet2015/remove_server.php");
+        String data= "ip_server="+ip_server;
         HttpURLConnection con = (HttpURLConnection) url_ip.openConnection();
         con.setDoInput(true);
         con.setDoOutput(true);
@@ -96,9 +120,9 @@ public class server_data {
         dataOut.close();
     }
     
-    public void remove_server(int id_server) throws Exception {
-        URL url_ip = new URL("https://pedago02a.univ-avignon.fr/~uapv1602792/projet2015/remove_player_server.php");
-        String data= "id_server="+id_server;
+    public String get_id_player(String nom, String password ) throws Exception {
+        URL url_ip = new URL("https://pedago02a.univ-avignon.fr/~uapv1602792/projet2015/get_id_player.php");
+        String data= "nom="+nom+"&&password="+password;
         HttpURLConnection con = (HttpURLConnection) url_ip.openConnection();
         con.setDoInput(true);
         con.setDoOutput(true);
@@ -111,6 +135,36 @@ public class server_data {
         dataOut.writeBytes(data);
         dataOut.flush();
         dataOut.close();
+        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(
+                                con.getInputStream()));
+        return in.readLine();
+    }
+    
+    /**
+     * @param ip_server
+     * @return
+     * @throws Exception
+     */
+    public String get_id_server(String server_ip) throws Exception {
+        URL url_ip = new URL("https://pedago02a.univ-avignon.fr/~uapv1602792/projet2015/get_id_server.php");
+        String data= "server_ip="+server_ip;
+        HttpURLConnection con = (HttpURLConnection) url_ip.openConnection();
+        con.setDoInput(true);
+        con.setDoOutput(true);
+        con.setUseCaches(false);
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type",
+                "application/x-www-form-urlencoded");
+        DataOutputStream dataOut = new DataOutputStream(
+                con.getOutputStream());
+        dataOut.writeBytes(data);
+        dataOut.flush();
+        dataOut.close();
+        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(
+                                con.getInputStream()));
+        return in.readLine();
     }
 }
 

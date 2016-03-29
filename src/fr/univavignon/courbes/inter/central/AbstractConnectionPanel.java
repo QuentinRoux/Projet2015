@@ -58,6 +58,9 @@ public abstract class AbstractConnectionPanel extends AbstractConfigurationPanel
 	 * 
 	 */
 	String port_server;
+	/**
+	 * 
+	 */
 	String nom_server;
 	/**
 	 * Construit un nouveau panel chargé de connecter le client à son serveur.
@@ -132,22 +135,7 @@ public abstract class AbstractConnectionPanel extends AbstractConfigurationPanel
 				  {
 					  nextStep();
 						
-				   /* String ip = ip_server;
-				    int port = Integer.parseInt(port_server.toString());
-					ClientCommunication clientCom = new ClientCommunicationImpl();
-					mainWindow.clientCom = clientCom;
-					clientCom.setErrorHandler(mainWindow);
-					ClientConnectionHandler autrement = null;
-					clientCom.setConnectionHandler(autrement);
-					
-					clientCom.setIp(ip);
-					SettingsManager.setLastServerIp(ip);
-					
-					clientCom.setPort(port);
-					SettingsManager.setLastServerPort(port);
-					
-					// puis on se connecte
-					clientCom.launchClient();*/			
+		
 				  }
 				});
 				ex1.setHorizontalAlignment(SwingConstants.CENTER);

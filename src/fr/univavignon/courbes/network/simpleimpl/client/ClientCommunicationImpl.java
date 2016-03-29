@@ -66,6 +66,10 @@ public class ClientCommunicationImpl implements ClientCommunication
 	////////////////////////////////////////////////////////////////
 	/** Variable qui contient le port du serveur */
 	private int port = Constants.DEFAULT_PORT;//2345;
+	/**
+	 * 
+	 */
+	private boolean central = false;
 
 	@Override
 	public int getPort()
@@ -77,6 +81,15 @@ public class ClientCommunicationImpl implements ClientCommunication
 	{	this.port = port;
 	}
 	
+	@Override
+	public boolean getCentral()
+	{	return central;
+	}
+
+	@Override
+	public void setCentral(boolean central)
+	{	this.central = central;
+	}
 	////////////////////////////////////////////////////////////////
 	////	HANDLER DE CONNEXION
 	////////////////////////////////////////////////////////////////

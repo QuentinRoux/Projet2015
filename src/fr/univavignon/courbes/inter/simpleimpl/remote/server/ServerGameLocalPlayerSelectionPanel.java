@@ -1,5 +1,10 @@
 package fr.univavignon.courbes.inter.simpleimpl.remote.server;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /*
  * Courbes
  * Copyright 2015-16 L3 Info UAPV 2015-16
@@ -25,6 +30,7 @@ import fr.univavignon.courbes.common.Round;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow;
 import fr.univavignon.courbes.inter.simpleimpl.MainWindow.PanelName;
 import fr.univavignon.courbes.inter.simpleimpl.local.AbstractLocalPlayerSelectionPanel;
+import fr.univavignon.courbes.network.central.server_data;
 
 /**
  * Panel permettant de sélectionner les joueurs locaux au serveur participant à une partie réseau.
@@ -77,7 +83,8 @@ public class ServerGameLocalPlayerSelectionPanel extends AbstractLocalPlayerSele
 	@Override
 	protected void nextStep()
 	{	if(checkConfiguration())
-		{	Round round = initRound();
+		{	
+			Round round = initRound();
 			mainWindow.currentRound = round;
 			mainWindow.displayPanel(PanelName.SERVER_GAME_REMOTE_PLAYER_SELECTION);
 		}

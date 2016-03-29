@@ -119,6 +119,7 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 		int port = Integer.parseInt(portStr);
 		SettingsManager.setLastPort(port);
 		mainWindow.serverCom.setPort(port);
+		mainWindow.serverCom.setCentral(publicBox.isSelected());
 		mainWindow.displayPanel(PanelName.SERVER_GAME_LOCAL_PLAYER_SELECTION);
 	}
 
@@ -133,11 +134,12 @@ public class ServerGamePortSelectionPanel extends AbstractConnectionPanel implem
 	{	int result = SettingsManager.getLastPort();
 		return result;
 	}
-
+	//TODO
 	@Override
 	public void itemStateChanged(ItemEvent e)
 	{	if(e.getSource()==publicBox)
 		{	
+		//TODO
 			System.out.println("Modification de la JCheckBox: "+publicBox.isSelected());
 		}
 	}

@@ -73,8 +73,11 @@ public interface ServerCommunication
      * @param errorHandler
      * 		Un objet implémentant l'interface {@code ErrorHandler}.
      */
+	
+	public void setCentral(boolean central);
 	public void setErrorHandler(ErrorHandler errorHandler);
 	
+	public boolean getCentral();
 	/**
      * Permet à l'Interface Utilisateur d'indiquer au Moteur Réseau l'objet
      * à utiliser pour prévenir d'une modification des joueurs lors de la
