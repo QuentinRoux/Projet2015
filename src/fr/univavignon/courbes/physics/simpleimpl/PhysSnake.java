@@ -47,7 +47,6 @@ public class PhysSnake extends Snake
 	/** Taille maximale de la file {@link #prevDisks} */
 	private final static int PREV_DISK_SIZE = 20;
 	Sound t=new Sound("res/sounds/impact.wav");
-	Sound t2=new Sound("res/sounds/drop.wav");
 	
 	/**
 	 * Crée le serpent associé au numéro indiqué, pour le profil
@@ -371,8 +370,6 @@ public class PhysSnake extends Snake
 					if(dist<=Constants.ITEM_RADIUS)
 					{	// on indique qu'on a touché un item (pour sortir des deux boucles)
 						itemCollided = true;
-						t2.start();
-						t2.cancel();
 						// on le sort de la liste des items encore en jeu
 						it.remove();
 						board.removedItems.add(item.itemId);
@@ -396,7 +393,6 @@ public class PhysSnake extends Snake
 					eliminatedBy = -1;
 					result = true;
 					t.start();
-					t.cancel();
 					// on restreint la nouvelle position du serpent
 					it.remove();
 				}
@@ -415,10 +411,8 @@ public class PhysSnake extends Snake
 					{	eliminatedBy = i;
 						result = true;
 						t.start();
-						t.cancel();
 					}
-				}
-				i++;
+				}i++;
 			}	
 		}
 		
