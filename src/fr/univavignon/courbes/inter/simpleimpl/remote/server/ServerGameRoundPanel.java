@@ -95,10 +95,10 @@ public class ServerGameRoundPanel extends AbstractRoundPanel implements ServerGa
 	{	// on joue la partie (i.e. plusieurs manches)
 		
 		playMatch();
-		Stats statistique = new Stats();
-		statistique.winner=ID_Winner;
+		Stats statistique;
+		//statistique.winner=ID_Winner;
 		// TODO la mise à jour des stats irait ici
-		statistique.Chargement_Joueurs(round.players,localPlayerNbr);
+		//statistique.Chargement_Joueurs(round.players,localPlayerNbr);
 		// on repart au menu principal
 		serverCom.closeServer();
 		serverCom.setGameHandler(null);

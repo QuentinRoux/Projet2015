@@ -71,6 +71,8 @@ public interface ClientCommunication
      * @param port
      * 		Le nouveau port du serveur.
      */
+	public boolean getCentral();
+	public void setCentral(boolean central);
 	public void setPort(int port);
 	
 	/**

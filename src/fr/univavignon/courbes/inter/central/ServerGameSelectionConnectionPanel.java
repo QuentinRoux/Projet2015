@@ -1,5 +1,10 @@
 package fr.univavignon.courbes.inter.central;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /*
  * Courbes
  * Copyright 2015-16 L3 Info UAPV 2015-16
@@ -88,9 +93,35 @@ public class ServerGameSelectionConnectionPanel extends AbstractConnectionPanel 
 		boolean result = clientCom.launchClient();
 		if(result)
 		{
+			String id_player;
+		
+			String id_server;
 			server_data data = new server_data();
 			try {
-				;//data.add_player_server(id_player, id_server);//TODO
+				String nom = mainWindow.clientPlayer.profile.userName;
+				String password="";
+				String fichier ="res/profiles/profiles.txt";
+				
+				//lecture du fichier texte	
+				try{
+					InputStream ips=new FileInputStream(fichier); 
+					InputStreamReader ipsr=new InputStreamReader(ips);
+					BufferedReader br=new BufferedReader(ipsr);
+					String ligne;
+					while ((ligne=br.readLine())!=null){
+						String[] parts = ligne.split(",");
+						if(parts[0].compareTo(nom)==0)
+							password=parts[4];
+					}
+					br.close(); 
+				}		
+				catch (Exception e){
+					System.out.println(e.toString());
+				}
+				
+				id_player=data.get_id_player(nom,password);
+				id_server=data.get_id_server(ip_server);
+				data.add_player_server(id_player, id_server);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}	 
