@@ -59,13 +59,9 @@ public abstract class AbstractRoundPanel extends JPanel implements Runnable
 	/** délai entre deux màj physiques en ms */
 	protected final static double PHYS_DELAY = 1000f / UPS; 
 	/** délai entre deux màj graphiques en ms */
-<<<<<<< HEAD
-	protected double GRAPH_DELAY = 1000f / FPS;
 	Sound t=new Sound("res/sounds/on-the-run-01.wav");
-=======
 	protected final static double GRAPH_DELAY = 1000f / FPS;
-	
->>>>>>> refs/remotes/upstream/master
+
 	/**
 	 * Crée une fenêtre contenant le plateau du jeu et les données du jeu.
 	 * 
